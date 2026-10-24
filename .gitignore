@@ -1,0 +1,8 @@
+.vs/**/*
+poldi/bin/**/*
+poldi/obj/**/*
+client/node_modules/**/*
+client/voice_cmd_rec.wav
+client/venv/**/*
+mt_log.txt
+mt_stt_log.txt

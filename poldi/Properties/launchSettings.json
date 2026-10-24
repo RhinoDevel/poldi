@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "poldi": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

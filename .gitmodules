@@ -1,0 +1,15 @@
+[submodule "client/ext/openWakeWord-cpp"]
+	path = client/ext/openWakeWord-cpp
+	url = https://github.com/RhinoDevel/openWakeWord-cpp.git
+[submodule "client/ext/rhasspy-silence"]
+	path = client/ext/rhasspy-silence
+	url = https://github.com/RhinoDevel/rhasspy-silence.git
+[submodule "poldi/mt_tts"]
+	path = poldi/mt_tts
+	url = https://github.com/RhinoDevel/mt_tts.git
+[submodule "poldi/mt_stt"]
+	path = poldi/mt_stt
+	url = https://github.com/RhinoDevel/mt_stt.git
+[submodule "poldi/mt_llm"]
+	path = poldi/mt_llm
+	url = https://github.com/RhinoDevel/mt_llm.git

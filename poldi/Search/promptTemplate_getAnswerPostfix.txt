@@ -1,0 +1,13 @@
+﻿### TASK ###
+
+Answer the following query using only the sources above and the current date,
+if necessary.
+
+- If the answer is not in the provided sources, just write: "{0}" (no explanation wanted).
+- Do NOT mention or reference the sources. 
+- Use full sentences. Do not use formatting symbols or structural markers.
+
+Current date: {1}
+
+Query: {2}
+Answer: 

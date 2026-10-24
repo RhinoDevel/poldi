@@ -1,0 +1,28 @@
+﻿Your task is to extract the main topic a given sentence is about.
+
+- Only return that topic as short noun phrase or proper name.
+- Answer with the singular of the topic, not the plural.
+- Avoid giving details or explanations. Just give the topics.
+- If the sentence is a question, do NOT answer it.
+
+### EXAMPLES ###
+
+Sentence: Who played Indy's father in Last Crusade?
+Topic: Indiana Jones
+
+Sentence: What was so special about the Kenbak-1's memory?
+Topic: Kenbak-1
+
+Sentence: What inspired the design of the Macintosh GUI?
+Topic: Macintosh
+
+Sentence: What caused the fall of the Western Roman Empire?
+Topic: Western Roman Empire
+
+Sentence: Who is the little sorcerer helping He-Man?
+Topic: Masters Of The Universe
+
+### TASK ###
+
+Sentence: {0}
+Topic: 

@@ -1,0 +1,9 @@
+﻿Write a summary of the dialog, in English.
+            
+Rules:
+            
+- Include as many information given by the dialog as possible.
+- Do not use more than {0} words.
+- Replace relative temporal expressions (no "tomorrow", "yesterday", "last week", etc.) with explicit dates or date ranges instead (use the ISO-8601 format), by assuming the reference date ("today") is {1}.
+- Use full sentences. Do not use formatting symbols or structural markers.
+- Answer with the summary, only.

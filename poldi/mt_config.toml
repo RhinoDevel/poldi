@@ -1,0 +1,414 @@
+﻿
+# (TOML) configuration file for P.O.L.D.I.
+#
+# 2026aug23, Marcel Timm, RhinoDevel
+
+[global]
+logToConsole = true # Logging to file mt_log.txt is always enabled.
+# Select the language to use for STT, TTS and hard-coded sentences, here.
+# All settings with the ending "_lang_<lang>" (e.g. "_lang_en") are available
+# for all supported languages. This setting here selects, which of these other,
+# language-specific settings are used. 
+lang = "en"#"de"
+
+# When a user request was received via audio-to-audio interface, the server will
+# check first, if there is any voice/speech activity included in the received
+# audio. If not, the request will be ignored and the client shall wait for the
+# wake word.
+[vad]
+# The path to the voice activity detection model. Right now, Silero VAD is used.
+# Download link:
+# https://github.com/snakers4/silero-vad/raw/refs/heads/master/src/silero_vad/data/silero_vad.onnx
+modelPath = "unset_vad_model_path"
+minConsecutivePositives = 5 # 5 => 5 x 32ms = 160ms (of det. voice activity).
+threshold = 0.5
+
+# mt_stt is used to transcribe an audio request from the user to text.
+# Internally, whisper.cpp is used.
+[stt]
+useGpu = false
+threads = 4
+language_lang_en = "en"
+language_lang_de = "de"
+# The path to the speed-to-text model. Right now, Whisper.cpp is used.
+# Download link for multi-language support (also see
+# https://huggingface.co/ggerganov/whisper.cpp/tree/main for more options):
+# https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin
+modelPath = "unset_stt_model_path"
+
+# mt_llm is used for large language model inference. All requests are send to it
+# and the responses of the LLM received.
+# In addition to that, mt_llm handled embedding vector calculation for texts and
+# reranking score calculation for text pairs.
+# Internally, llama.cpp is used.
+[llm]
+threads = 4
+# Enable/disable logging directly by mt_llm.
+enable_log = true
+# Enable/disable logging done by llama.cpp.
+enable_llama_cpp_log = true
+# Activate this to enable:
+# - Saving full chat history in a database.
+# - Automatic resume of the last chat on restart of Poldi.
+# - "Infinite chat" feature that will automatically be triggered, if the context
+#   is full. It summarizes the older half of the dialog in the context, clears
+#   the context and puts the summary plus the more recent half of the
+#   conversation back into the context.
+# - Extraction of memories (right now facts about the user, only) from chats and
+#   automatic injection of helpful memories into user prompts.
+useMemorySystem = false
+# To use modules in addition to chat mode that will get automatically activated
+# (like Wikipedia and chat history search).
+useModules = false
+# If the LLM model shall be kept in (V)RAM or always loaded/unloaded for each
+# LLM response inference (to be able to use memory for something else).
+keepLoaded = true
+# If the chat shall be visible on the console/terminal.
+writeToConsole = true
+
+# These are the settings used for chat mode.
+[llm.chat]
+typeKvQ80 = false
+gpuLayers = 0
+contextSize = 2048
+maxLogicalDecodeBatchSize = 2048
+maxPhysicalDecodeBatchSize = 512
+topK = 40
+topP = 0.95
+minP = 0.05
+temperature = 0.8
+grammar = ""
+cpuMoE = false
+nCpuMoE = 0
+modelPath = "unset_llm_chat_model_path"
+# If useMemorySystem is set to false, this system prompt will be used.
+# If useMemorySystem is set to true, [mem]'s sysPrompt will be used.
+sysPrompt = """
+You are a helpful and friendly conversational AI companion.
+You are called Poldi (Private Offline Local Digital Intelligence).
+
+Start answering immediately in natural spoken language without any introduction or restatement of the question.
+
+Use full sentences. Do not use formatting symbols or structural markers. Spell words fully.
+
+Prioritize truth over agreement. Disagree with the user when justified, and never flatter them at the expense of honesty."""
+# Enable to rely on mt_llm's automatic prompt template creation. Otherwise, fill
+# the parameters below.
+tryPromptsByModel = true
+enableThinking = false
+promptBegDelim = ""
+promptEndDelim = ""
+sysPromptBegDelim = ""
+sysPromptMidDelim = ""
+sysPromptEndDelim = ""
+thinkBegDelim = ""
+thinkEndDelim = ""
+
+# The configuration for using an LLM as classifier.
+[llm.sel]
+# If enabled, this singleton will use the chat LLM for select mode, if it is
+# loaded and both configurations use the same model (file path). All other
+# settings will not be compared / will be ignored(!). Before the select run, the
+# chat LLM's context will be saved (in RAM) and after the run, it will be
+# restored.
+useChatSlotIfPossible = true
+typeKvQ80 = false
+gpuLayers = 0
+contextSize = 2048
+maxLogicalDecodeBatchSize = 2048
+maxPhysicalDecodeBatchSize = 512
+topK = 40
+topP = 0.95
+minP = 0.05
+temperature = 0.8
+grammar = ""
+cpuMoE = false
+nCpuMoE = 0
+modelPath = "unset_llm_sel_model_path"
+sysPrompt = """
+You are given a question.
+All possible answers are given as options, each has a number.
+Find the correct answer.
+Respond by writing the answer's number, only (no prefix)!"""
+# Enable to rely on mt_llm's automatic prompt template creation. Otherwise, fill
+# the parameters below.
+tryPromptsByModel = true
+enableThinking = false
+promptBegDelim = ""
+promptEndDelim = ""
+sysPromptBegDelim = ""
+sysPromptMidDelim = ""
+sysPromptEndDelim = ""
+thinkBegDelim = ""
+thinkEndDelim = ""
+
+# Settings for using the LLM to extract memories from former chats.
+[llm.mem]
+# If enabled, this singleton will use the chat LLM for memory mode, if it is
+# loaded and both configurations use the same model (file path). All other
+# settings will not be compared / will be ignored(!). Before the memory mode
+# run, the chat LLM's context will be saved (in RAM) and after the run, it will
+# be restored.
+useChatSlotIfPossible = true
+typeKvQ80 = false
+gpuLayers = 0
+contextSize = 2048
+maxLogicalDecodeBatchSize = 2048
+maxPhysicalDecodeBatchSize = 512
+topK = 40
+topP = 0.95
+minP = 0.05
+temperature = 0.8
+grammar = ""
+cpuMoE = false
+nCpuMoE = 0
+modelPath = "unset_llm_mem_model_path"
+sysPrompt = ""
+# Enable to rely on mt_llm's automatic prompt template creation. Otherwise, fill
+# the parameters below.
+tryPromptsByModel = true
+enableThinking = false
+promptBegDelim = ""
+promptEndDelim = ""
+sysPromptBegDelim = ""
+sysPromptMidDelim = ""
+sysPromptEndDelim = ""
+thinkBegDelim = ""
+thinkEndDelim = ""
+
+# Embedding vector calculation setup.
+[llm.emb]
+typeKvQ80 = false
+gpuLayers = 0
+contextSize = 0
+maxLogicalDecodeBatchSize = 512
+maxPhysicalDecodeBatchSize = 512
+modelPath = "unset_llm_emb_model_path"
+# If the embedding model shall be kept in (V)RAM or always loaded/unloaded for
+# each usage (to be able to use memory for something else).
+keepLoaded = true
+
+# Reranking score(-s) settings. 
+[llm.rer]
+typeKvQ80 = false
+gpuLayers = 0
+contextSize = 0
+maxLogicalDecodeBatchSize = 2048
+maxPhysicalDecodeBatchSize = 512
+modelPath = "unset_llm_rer_model_path"
+# If the reranking model shall be kept in (V)RAM or always loaded/unloaded for
+# each score(-s) calculation (to be able to use memory for something else).
+keepLoaded = true
+
+# "sim" as in SIMilarity.
+# 
+# Configuration for getting the texts out of a given list of strings that are
+# most similar to a special given text, by using cosine similarity score
+# comparance of the texts' embeddings and/or a reranking model.
+[sim]
+# Enable/disable the reranking score calculation and usage. If disabled, only
+# the cosine similarity score comparance of the texts' embeddings will be used.
+# This will speed-up Poldi, especially when CPU-inference is used, only.
+useReranking = true
+# If there are more than this count of input documents given, pre-filtering will
+# be done via cosine similarity score calculation of embeddings and comparance.
+maxRerankDocuments = 50#100
+
+# mt_tts is used to create audio output from LLM's (text) responses.
+# Internally, Piper TTS is used.
+# File source: https://huggingface.co/rhasspy/piper-voices/tree/main
+[tts]
+# English:
+modelPath_lang_en = "unset_tts_en_model_path"
+configPath_lang_en = "unset_tts_en_config_path"
+# German:
+modelPath_lang_de = "unset_tts_de_model_path"
+configPath_lang_de = "unset_tts_de_config_path"
+
+# This is the configuration for the HTTP server, to receive requests from the
+# client.
+[http]
+userAgent = "poldi/1.0 (https://github.com/RhinoDevel)"
+timeout = 10 # Seconds
+url = "http://127.0.0.1:8080/"
+selQueryPath = "selQuery"
+queryPath = "query"
+chunkedPath = "chunked"
+textToAudioPath = "textToAudio"
+audioToAudioPath = "audioToAudio"
+cancelPath = "cancel"
+webClientPath = "webclient"
+
+# Settings related to the database, e.g. memory extraction from former chats.
+[mem]
+dbPath = "chatmem.db"
+sysPrompt = """
+You are a helpful and friendly conversational AI companion.
+You are called Poldi (Private Offline Local Digital Intelligence).
+
+Input is divided into sections: CONSTRAINTS, USER INPUT, MEMORIES, METADATA.
+
+Follow CONSTRAINTS and USER INPUT.
+
+MEMORIES are external records and not part of the current conversation.
+Only use MEMORIES if they directly affect the answer. Otherwise ignore them.
+
+Start answering immediately in natural spoken language without any introduction or restatement of the question.
+
+Use full sentences. Do not use formatting symbols or structural markers. Spell words fully.
+
+Prioritize truth over agreement. Disagree with the user when justified, and never flatter them at the expense of honesty."""
+sysPromptDialog = """
+You will be given the protocol of a dialog between a user and an AI assistant.
+A task related to that dialog will also be given, execute it exactly as requested."""
+maxWordsSummary = 400 # Also used during infinite chat!
+statementIsUsefulMemMinConfidence = 0.65
+statementIsUsefulExplanation = """
+Evaluate whether a statement is a useful long-term memory about the user.
+
+Rules:
+- The statement must describe a general and stable fact about the user.
+- It should be useful for understanding or responding to the user in future conversations.
+- It should describe a preference, trait, long-term activity, or personal relationship (family, friends, pets).
+- Do NOT accept temporary situations, one-time events, or very specific details.
+- If the statement is unclear or borderline, answer No."""
+# 0 = The memory statement.
+statementIsUsefulQuestion = """
+Is the statement "{0}" a valid long-term memory about the user?"""
+# During the search for duplicate memory statements only this number of
+# best-matching statements are taken into account.
+deleteMaxSim = 3
+# 0 = The memory statement to keep.
+# 1 = The memory statement that may be deletable.
+deleteQuestionContains = """
+Does the statement "{0}" contain all the information included in the other statement "{1}" (no matter, if directly or indirectly)?"""
+# 0 = The memory statement to keep.
+# 1 = The memory statement that may be deletable.
+deleteQuestionBothTruePossible = """
+Can the statements "{0}" and "{1}" about the same person both be true at the same time?"""
+
+# Settings for augmentation of user prompts (e.g. with memory statements).
+[augment]
+# Disables this to avoid injection of memories into the user prompt (smaller and
+# mixture-of-experts LLMs with not so many active parameters sometimes get
+# irritated by these). Does nothing, if "[llm] useMemorySystem" is disabled.
+memoryParagraph = true
+# If neither user prompt, nor last LLM response is longerthant this count of
+# words, no memory statements will be injected into the user prompt.
+memMinTextWordCount = 4
+# Only memory statements from this count of most-recent chats will eventually be
+# injected, statements from previous chats will be ignored.
+memMaxMostRecentChats = 1000
+# Count of maximum statements the embedding cosine similarity and reranking
+# scores comparing part returns.
+memMaxStatements = 10
+# Count of maximum statements the LLM-based relevance-gate returns, if  the user
+# prompt (not the last LLM response) is used and the user asked a question.
+# Should be less than memMaxStatements.
+memMaxStatementsQuestion = 5
+# Count of maximum statements the LLM-based relevance-gate returns, if no
+# question is asked or the last assistant's response is used.
+# Should be less than memMaxStatements and probably also less than
+# memMaxStatementsQuestion.
+memMaxStatementsNoQuestion = 3
+# The maximum count of assistant responses ending with a question and following
+# each other (so to say) allowed. Used to dynamically prevent the LLM to ask too
+# many questions.
+memMaxRespQuestionCount = 2
+# The maximum count of assistant responses NOT ending with a question and
+# following each other (being "adjacent") allowed. Used to dynamically prevent
+# the LLM to NOT asking any questions for a long time.
+memMaxRespNoQuestionCount = 3
+# If this count of most recent, "adjacent" assistant responses had each at least
+# memMaxWordCountTrigger" words, add dynamic rule trying to limit next LLM
+# answer length.
+memMaxWordCountRespCount = 2
+memMaxWordCountTrigger = 70 # Words
+memMaxWordCountLimit = 40 # Words.
+memMinWordCountRespCount = 3
+memMinWordCountTrigger = 20 # Words
+memMinWordCountLimit = 40 # Words.
+# After reduction of injection candidates by using cosine similarity of
+# embeddings and reranking scores, an LLM gate is used to detect, which of the
+# top-scoring memory statements do really make sense to inject into the user
+# prompt.
+gateSysPrompt = """
+You are given a question.
+Information to answer that question is also given.
+Find the correct answer.
+Respond with a JSON array only (no formatting or prefix necessary, just a one dimensional JSON array), containing none, one or multiple numbers."""
+# 0 = If there is a last msg. from the assistant, it is given (empty string
+#     otherwise).
+# 1 = The current user prompt.
+# 2 = The top-scoring memory statements.
+gatePrompt = """
+You are in a conversation with the user.
+{0}
+The user's current request: "{1}"
+
+You have the following memories:
+
+{2}
+Which of these memories are required to produce a factually correct response to the user's current request or make further topic-related conversation possible (include at most {3} of the memories in your answer)?"""
+
+# Wikipedia search module settings (also used by Wikipedia search console mode).
+[wikipedia]
+# If disabled, the search only uses cosine similarity scores of embeddings.
+# Note: When [sim] useReranking is disabled, the reranker will never be used
+#       here.
+useReranker = true
+maxTopics = 3
+minChunkWordCount = 16 # Words.
+# Reduce this for a speed-up, e.g. when using CPU-inference, only.
+chunkCountToInject = 64
+
+# Chat history search module configuration.
+[history]
+# How many former chats' summaries will be compared with the query's topic to
+# select a chat to try to find the answer in it.
+llmMaxCandidateCount = 10
+maxResponseWordCount = 300 # Words.
+
+# Internet search module and interface setting.
+[www]
+# To be set to the base URL of a SearXNG instance that allows JSON responses(!).
+# It is recommended to setup your own instance, but you can find addresses of
+# public servers that also can be used, at https://searx.space/.
+searXngBase = ""#"http://pi4.fritz.box/searxng/"
+# Maximum of how many of the top search result websites will be searched through
+# trying to find the response to the query.
+maxSearchResults = 5
+# If disabled, the search only uses cosine similarity scores of embeddings.
+# Note: When [sim] useReranking is disabled, the reranker will never be used
+#       here.
+useReranker = true
+minChunkWordCount = 16 # Words.
+# Reduce this for a speed-up, e.g. when using CPU-inference, only.
+chunkCountToInject = 64
+
+# Strings that depend on the language you want to use with STT, LLM and STT.
+[lang]
+# English:
+waitForMemExtractMsg_lang_en = "Excuse me, I have to update my memories, this may take some time. Thanks for your patience, please wait."
+waitForImportMsg_lang_en = "Sorry, I have to import messages, this may take some time. Thanks for your patience, please wait."
+topicNotFoundInChatHistory_lang_en = "Sorry, I did not find anything about that topic in chat history."
+doYouWantMeToSearchChatHistory_lang_en = "Do you want me to search the chat history for that topic?"
+skippingChatHistorySearch_lang_en = "You don't seem to want me searching the topic in my chat history, skipping."
+askQuestionForWikipedia_lang_en = "Please ask the question I shall answer via Wikipedia search."
+skippingWikipediaSearch_lang_en = "This does not seem like a question, skipping search."
+answerNotFoundInWikipedia_lang_en = "Sorry, I did not find an answer."
+askQuestionForWww_lang_en = "Please ask the question I shall answer via internet search."
+skippingWwwSearch_lang_en = "This does not seem like a question, skipping search."
+answerNotFoundInWww_lang_en = "Sorry, I did not find an answer."
+# German:
+waitForMemExtractMsg_lang_de = "Tut mir leid, ich muss meine Erinnerungen aktualisieren, das dauert etwas. Danke für die Geduld, bitte warten."
+waitForImportMsg_lang_de = "Enschuldigung, ich muss Nachrichten importieren, das dauert etwas. Danke für die Geduld, bitte warten."
+topicNotFoundInChatHistory_lang_de = "Tut mir leid, zu dem Thema konnte ich in der Dialog-Protokoll nichts finden."
+doYouWantMeToSearchChatHistory_lang_de = "Soll ich im Dialog-Protokoll nach dem Thema suchen?"
+skippingChatHistorySearch_lang_de = "Die Suche im Dialog-Protokoll scheint nicht gewollt, ich breche sie ab."
+askQuestionForWikipedia_lang_de = "Bitte stelle die Frage, die ich mit Hilfe von Wikipedia beantworten soll."
+skippingWikipediaSearch_lang_de = "Das scheint keine Frage zu sein, ich breche die Suche ab."
+answerNotFoundInWikipedia_lang_de = "Tut mir leid, ich konnte die Antwort nicht finden."
+askQuestionForWww_lang_de = "Bitte stelle die Frage, die ich mit Hilfe des Internets beantworten soll."
+skippingWwwSearch_lang_de = "Das scheint keine Frage zu sein, ich breche die Suche ab."
+answerNotFoundInWww_lang_de = "Tut mir leid, ich konnte die Antwort nicht finden."

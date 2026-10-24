@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/poldi/bin/Debug/net8.0/poldi", // Add ".dll" in Windows!
+            "args": [""],
+            "cwd": "${workspaceFolder}",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console":"integratedTerminal",
+            "stopAtEntry": false,
+            "env": {
+                "LD_LIBRARY_PATH": "${workspaceFolder}/poldi/mt_tts/mt_tts/piper/build/pi/lib:${workspaceFolder}/poldi/mt_llm/mt_llm/llama.cpp/build/common:${workspaceFolder}/poldi/mt_llm/mt_llm/llama.cpp/build/bin:${workspaceFolder}/poldi/mt_stt/mt_stt/whisper.cpp/build/src:${env:LD_LIBRARY_PATH}"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}

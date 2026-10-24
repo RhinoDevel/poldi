@@ -1,0 +1,26 @@
+﻿Your task is to create the beginning of an answer to a question given.
+
+- Only return the beginning of the answer.
+- Do NOT really answer the question!
+
+### EXAMPLES ###
+
+Question: Who played Indy's father in Last Crusade?
+Beginning of answer: In The Last Crusade, Indiana Jones's father was played by
+
+Question: What was so special about the Kenbak-1's memory?
+Beginning of answer: The special thing about the Kenbak-1's memory was
+
+Question: What inspired the design of the Macintosh GUI?
+Beginning of answer: The design of the Macintosh GUI was inspired by
+
+Question: What caused the fall of the Western Roman Empire?
+Beginning of answer: The fall of the Western Roman Empire was caused by
+
+Question: Who is the little sorcerer helping He-Man?
+Beginning of answer: The little sorcerer helping He-man is
+
+### TASK ###
+
+Question: {0}
+Beginning of answer: 

@@ -1,0 +1,21 @@
+﻿From the dialog, extract facts about the user or the user's close relations (family, friends, pets).
+
+Rules:
+
+- Focus only on stable facts: identity, preferences, and close relations.
+- Do not change or upgrade relationship types or strength (e.g. cousin must remain cousin, acquaintance must not become friend).
+- Do not include questions from the user.
+- Do not include replies or behavior of the assistant.
+- Do not describe the conversation itself.
+- Facts must describe stable properties of the user, not one-time actions or temporary activities.
+- Do not include projects, tasks, plans, or activities the user is doing or planning.
+- Ignore single events or temporary situations.
+- Prefer facts that are generally true over time.
+- Each fact must be understandable without referring to other facts.
+- Each fact must be fully self-contained and must not assume any entity introduced in other lines. If necessary, repeat context within the same line.
+- Use neutral, timeless phrasing.
+- One fact per line.
+- Each line must be a short, self-contained sentence.
+- Each line must start with "The user".
+- Do not guess or infer missing information.
+- If no facts exist, reply "{0}".

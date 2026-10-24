@@ -1,0 +1,51 @@
+Notes
+-----
+
+Running in Windows
+- - - - - - - - - -
+
+- mt_tts:
+
+  - Put the DLLs (espeak-ng.dll, onnxruntime.dll and piper_phonemize.dll) into
+    the folder, where the mt_tts.dll resides.
+
+  - Put the folder espeak-ng-data into the folder, where the poldi.exe
+    file is located.
+
+Running in Linux
+- - - - - - - - -
+
+Use the mt_init.sh file (and the mt_init.sh files of the submodules).
+
+Eventually configure the settings in mt_init.sh (and the submodules' mt_init.sh
+files) for your computer hardware.
+
+Details (you do not need to know, if you use the scripts mentioned above):
+
+- There is the solution's root folder, e.g.:
+
+  poldi
+
+- And the binary folder, e.g.:
+
+  poldi/poldi/bin/Release/net8.0
+
+- When running Poldi from the root folder, e.g. via
+
+  dotnet run --project poldi --configuration Release
+
+  , the working directory is that root folder (e.g. important for paths in
+
+  mt_config.json
+
+  and this is also the place where the log file
+
+  mt_log.txt
+
+  will be created).
+
+- But Piper's subfolder
+
+  espeak-ng-data
+
+  will be searched for by default in the poldi binary(!) folder.

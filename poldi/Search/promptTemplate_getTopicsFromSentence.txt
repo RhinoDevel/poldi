@@ -1,0 +1,33 @@
+﻿Your task is to extract 1 to {0} topics a given sentence is about.
+
+- Only return the topics as short noun phrases or proper names, one topic per line.
+- Answer with the singulars of the 1 to {0} topics, not the plural.
+- Avoid giving details or explanations. Just give the topics.
+- If the sentence is a question, do NOT answer it.
+
+### EXAMPLES ###
+
+Sentence: Who played Indy's father in Last Crusade?
+Topics: Indiana Jones
+The Last Crusade
+
+Sentence: What was so special about the Kenbak-1's memory?
+Topics: Kenbak-1
+Computer memory
+
+Sentence: What inspired the design of the Macintosh GUI?
+Topics: Macintosh
+Graphical User Interface
+
+Sentence: What caused the fall of the Western Roman Empire?
+Topics: Western Roman Empire
+The fall of the Western Roman Empire
+
+Sentence: Who is the little sorcerer helping He-Man?
+Topics: Masters Of The Universe
+He-Man
+
+### TASK ###
+
+Sentence: {1}
+Topics: 

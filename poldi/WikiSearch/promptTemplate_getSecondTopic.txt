@@ -1,0 +1,12 @@
+﻿The answer to the question "{0}" shall be found by reading articles at Wikipedia.
+
+One article that may contains the answer to that question has the title "{1}".
+
+Your task is to write down the title of another article that may contains the answer to the question above.
+
+- Return the other article's title, only.
+- Avoid giving details or explanations. Just give that second article's title.
+- If you cannot think of a second article's title that may holds the answer to the question above, write "{2}", only.
+- Do NOT answer the question!
+
+Second article's title: 
