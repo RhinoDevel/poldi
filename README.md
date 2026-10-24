@@ -31,6 +31,12 @@ automatically **resume** right where it was.
 
 There is more, like **modules** and **memories**, see below for more details.
 
+## Video
+
+[![Watch the video](https://img.youtube.com/vi/8AQWnoBXt4U/maxresdefault.jpg)](https://www.youtube.com/watch?v=8AQWnoBXt4U)
+
+The video demonstrates a lot of the features implemented in Poldi.
+
 ## Features
 
 - Specifically built to **run on consumer hardware** (the more VRAM your GPU
@@ -47,7 +53,8 @@ There is more, like **modules** and **memories**, see below for more details.
   ability to **use your smartphone** to talk to Poldi, even from anywhere in the
   world, if you are using a VPN!
   Both clients support **interrupting Poldi mid-answer** (e.g. via wakeword or
-  button). In chat mode, with the [hands-free client](client), the wakeword is
+  button, [watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=320s)).
+  In chat mode, with the [hands-free client](client), the wakeword is
   automatically not necessary (just respond to Poldi's last message
   immediately). Communication with the Poldi server is done via HTTP. Audio will
   be transferred, the server does the heavy-lifting of STT and TTS.
@@ -56,15 +63,18 @@ There is more, like **modules** and **memories**, see below for more details.
   It shows everything(!) that is put into the LLM's context, but you can
   identify Poldi's responses immediately, because everything is **colored by
   token type** (good for debugging and for full transparency).
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=704s&pp=0gcJCR0AztywvtLA).
 
 - **Automatic resume**: On restart, the last chat's state will automatically be
   reimported into the context, you can continue your conversation. Poldi also
   keeps track of time, so it will know, if your (now continued) conversation was
   a while back.
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=78s).
 
 - **"Infinite chat"**: When the LLM's context is full, Poldi automatically
   summarizes the earlier half of the conversation, clears the context and puts
   that summary plus the later half of the conversation back into the context.
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=392s).
 
 - **Complete chat protocol**: Every chat message is stored in an
   [SQLite](https://sqlite.org/) database. It is used to let Poldi remember
@@ -77,15 +87,16 @@ There is more, like **modules** and **memories**, see below for more details.
   
 - **Chat history search**: Poldi can search for topics you have talked about at
   some point in the complete search history. This way, it can remember things
-  that are neither in the context nor injectable facts about the user.  
+  that are neither in the context nor injectable facts about the user.
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=539s)
   
 - **Wikipedia search**: You can give Poldi a question that shall be answered via
   a search at [Wikipedia](https://www.wikipedia.org/) (this is one exception
-  where internet access is done).
+  where internet access is done). [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=255s).
   
 - **Internet search**: Let Poldi answer a question by using a
   [SearXNG](https://docs.searxng.org/) instance and RAG (this is another
-  exception where Poldi needs internet access).
+  exception where Poldi needs internet access). [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=191s).
 
 - **Dynamically injected instructions**, e.g. to avoid that the LLM is asking
   too many or too few questions and to prevent answers being too long or too
@@ -98,6 +109,7 @@ There is more, like **modules** and **memories**, see below for more details.
 - **HTTP server**: Everything can be accessed via HTTP requests.
   
 - **Adaptable to any language** the STT, TTS and LLM models support.
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=657s).
 
 - **Highly configurable**: You can configure Poldi via a simple
   [TOML file](poldi/mt_config.toml) to get the most out of it on your hardware.
@@ -760,6 +772,12 @@ configuration file.
 [AngleSharp](https://github.com/AngleSharp) and
 [Readability.js](https://github.com/mozilla/readability) are used to make the
 internet search module possible.
+
+[OBS Studio](https://obsproject.com/) and [Shotcut](https://shotcut.org/) where
+used for video recording and production.
+
+[C64 TrueType](https://style64.org/projects/c64-truetype) was used for the texts
+in the video.
 
 Also see the [CREDITS.txt](CREDITS.txt) file for the license texts.
 
