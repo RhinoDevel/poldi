@@ -39,6 +39,15 @@ internal class MusicPlayer : Module
 
     private const string _intention = "To listen to music.";
 
+    private static readonly string _whatDoYouWantToListenTo =
+    C.D<string>("lang:whatDoYouWantToListenTo");
+    private static readonly string _iDidNotGetThat =
+        C.D<string>("lang:iDidNotGetThat");
+    private static readonly string _playingBackPrefix =
+        C.D<string>("lang:playingBackPrefix");
+    private static readonly string _stoppedPlayback =
+        C.D<string>("lang:stoppedPlayback");
+
     // *************************************************************************
 
     private State _state = State.Start;
@@ -108,7 +117,7 @@ internal class MusicPlayer : Module
             Debug.Assert(_artistAndOrTitle == string.Empty);
             _state = State.ExtractOnly;
             reqImmedUserResp = true;
-            return "What do you want to listen to?"; // TODO: Hard-coded (language)!
+            return _whatDoYouWantToListenTo;
         }
 
         _artistAndOrTitle = artistAndOrTitle;
@@ -131,7 +140,7 @@ internal class MusicPlayer : Module
             isDone = true;
             _state = State.Done;
             reqImmedUserResp = false;
-            return "Sorry, I didn't get that. Exiting music player."; // TODO: Hard-coded (language)!
+            return _iDidNotGetThat;
         }
 
         _artistAndOrTitle = artistAndOrTitle;
@@ -149,7 +158,7 @@ internal class MusicPlayer : Module
         isDone = false;
         reqImmedUserResp = false;
         _state = State.PlayingBack;
-        return $"Playing {_artistAndOrTitle}."; // TODO: Hard-coded (language) and unnecessary (logic problem?!)!
+        return $"{_playingBackPrefix} {_artistAndOrTitle}."; // TODO: Unnecessary (logic problem?!)!
     }
 
     private string OnPlayingBack(out bool isDone, out bool reqImmedUserResp)
@@ -159,7 +168,7 @@ internal class MusicPlayer : Module
         isDone = true;
         reqImmedUserResp = false;
         _state = State.Done;
-        return "Stopped playback."; // TODO: Hard-coded (language)!
+        return _stoppedPlayback;
     }
 
     internal override string Exec(
