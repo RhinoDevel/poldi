@@ -39,8 +39,13 @@ internal class MusicPlayer : Module
 
     private const string _intention = "To listen to music.";
 
+    private static readonly string _cmdStartPlayback =
+        C.D<string>("music:cmdStartPlayback");
+    private static readonly string _cmdStopPlayback =
+        C.D<string>("music:cmdStopPlayback");
+
     private static readonly string _whatDoYouWantToListenTo =
-    C.D<string>("lang:whatDoYouWantToListenTo");
+        C.D<string>("lang:whatDoYouWantToListenTo");
     private static readonly string _iDidNotGetThat =
         C.D<string>("lang:iDidNotGetThat");
     private static readonly string _playingBackPrefix =
@@ -153,7 +158,17 @@ internal class MusicPlayer : Module
     {
         Debug.Assert(_artistAndOrTitle.Trim().Length != 0);
 
-        // TODO: Implement actually starting playback!
+        {
+            var inf = new ProcessStartInfo
+            {
+                FileName = _cmdStartPlayback,
+                UseShellExecute = false
+            };
+
+            inf.ArgumentList.Add(_artistAndOrTitle);
+
+            Process.Start(inf); // TODO: No error handling, here!
+        }
 
         isDone = false;
         reqImmedUserResp = false;
@@ -163,7 +178,12 @@ internal class MusicPlayer : Module
 
     private string OnPlayingBack(out bool isDone, out bool reqImmedUserResp)
     {
-        // TODO: Implement actually stopping playback!
+        Process.Start( // TODO: No error handling, here!
+            new ProcessStartInfo
+            {
+                FileName = _cmdStopPlayback,
+                UseShellExecute = false
+            });
 
         isDone = true;
         reqImmedUserResp = false;
