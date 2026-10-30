@@ -365,8 +365,8 @@ chunkCountToInject = 64
 # Music player module configuration.
 [music]
 # Artist and/or title string will be added as parameter.
-cmdStartPlayback=""
-cmdStopPlayback=""
+cmdStartPlayback="mpc/mpcfuzzy.sh"
+cmdStopPlayback="mpc/mpcstop.sh"
 
 # Chat history search module configuration.
 [history]
