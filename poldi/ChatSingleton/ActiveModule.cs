@@ -27,10 +27,8 @@ internal class ActiveModule
             new Modules.ChatSearch(),
             new Modules.WikiSearch(),
             new Modules.WwwSearch(),
-#if DEBUG // TODO: Enable for release mode, when implemented completely!
-        new Modules.MusicPlayer(),
-#endif //DEBUG
-        // Add more, here.
+            new Modules.MusicPlayer(),
+            // Add more, here.
     ];
 
     /// <remarks>
