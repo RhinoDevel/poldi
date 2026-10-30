@@ -23,13 +23,7 @@ namespace Poldi.ChatSingleton;
 
 internal class ActiveModule
 {
-    internal static readonly List<Modules.Module> Modules = [
-            new Modules.ChatSearch(),
-            new Modules.WikiSearch(),
-            new Modules.WwwSearch(),
-            new Modules.MusicPlayer(),
-            // Add more, here.
-    ];
+    internal static readonly List<Modules.Module> Modules;
 
     /// <remarks>
     /// null means LLM mode.
@@ -40,4 +34,18 @@ internal class ActiveModule
     internal int MsgsFromBeforeCount = 0;
 
     internal readonly List<Modules.Module> CalledByMistake = [];
+
+    static ActiveModule()
+    {
+        Modules = [];
+
+        Modules.Add(new Modules.ChatSearch());
+        Modules.Add(new Modules.WikiSearch());
+        Modules.Add(new Modules.WwwSearch());
+
+        if(C.D<bool>("music:enable"))
+        {
+            Modules.Add(new Modules.MusicPlayer());
+        }
+    }
 }
