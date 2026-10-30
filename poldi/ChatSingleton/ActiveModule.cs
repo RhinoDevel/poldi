@@ -17,28 +17,29 @@
 
 // Marcel Timm, RhinoDevel, 2026jul07
 
-using Poldi.ChatSingleton.Modules;
 using System.Collections.Generic;
 
-namespace Poldi.ChatSingleton
+namespace Poldi.ChatSingleton;
+
+internal class ActiveModule
 {
-    internal class ActiveModule
-    {
-        internal static readonly List<Module> Modules = [
-                new Modules.ChatSearch(),
-                new Modules.WikiSearch(),
-                new Modules.WwwSearch(),
-                // Add more, here.
-            ];
+    internal static readonly List<Modules.Module> Modules = [
+            new Modules.ChatSearch(),
+            new Modules.WikiSearch(),
+            new Modules.WwwSearch(),
+#if DEBUG // TODO: Enable for release mode, when implemented completely!
+        new Modules.MusicPlayer(),
+#endif //DEBUG
+        // Add more, here.
+    ];
 
-        /// <remarks>
-        /// null means LLM mode.
-        /// </remarks>
-        internal Module? Current = null;
+    /// <remarks>
+    /// null means LLM mode.
+    /// </remarks>
+    internal Modules.Module? Current = null;
 
-        internal readonly List<string> Msgs = new();
-        internal int MsgsFromBeforeCount = 0;
+    internal readonly List<string> Msgs = new();
+    internal int MsgsFromBeforeCount = 0;
 
-        internal readonly List<Module> CalledByMistake = [];
-    }
+    internal readonly List<Modules.Module> CalledByMistake = [];
 }
