@@ -688,6 +688,9 @@ You can read more about some of Poldi's core features in the files inside the
 - Detect **emotion** from the audio and inject them into the user prompt to
   let the user's emotion influence Poldi's answer.
 - A **calendar** module.
+- An **agentic programming loop** to enable Poldi to answer some questions
+  deterministically by letting Poldi write, execute and debug a Python script
+  dynamically that is meant to answer such a question.
 - Let Poldi **remember other things** via user prompt augmentation (not just
   facts about the user), e.g. events.
 - **Multi-user** with auto-detection based on the voice (shouldn't be that hard
