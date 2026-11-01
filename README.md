@@ -92,11 +92,18 @@ The video demonstrates a lot of the features implemented in Poldi.
   
 - **Wikipedia search**: You can give Poldi a question that shall be answered via
   a search at [Wikipedia](https://www.wikipedia.org/) (this is one exception
-  where internet access is done). [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=255s).
+  where internet access is done).
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=255s).
   
 - **Internet search**: Let Poldi answer a question by using a
   [SearXNG](https://docs.searxng.org/) instance and RAG (this is another
-  exception where Poldi needs internet access). [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=191s).
+  exception where Poldi needs internet access).
+  [Watch the video](https://www.youtube.com/watch?v=8AQWnoBXt4U&list=PLHmdQyDGCHqc&index=1&t=191s).
+
+- **Music player**: Tell Poldi to what song (from your music library) you'd like
+  to listen to and it will play it back (e.g. via
+  [Music Player Daemon](https://www.musicpd.org/), using
+  [mpc](https://www.musicpd.org/clients/mpc/)).
 
 - **Dynamically injected instructions**, e.g. to avoid that the LLM is asking
   too many or too few questions and to prevent answers being too long or too
@@ -681,7 +688,6 @@ You can read more about some of Poldi's core features in the files inside the
 - Detect **emotion** from the audio and inject them into the user prompt to
   let the user's emotion influence Poldi's answer.
 - A **calendar** module.
-- A **music player** (maybe difficult because of the noise?).
 - Let Poldi **remember other things** via user prompt augmentation (not just
   facts about the user), e.g. events.
 - **Multi-user** with auto-detection based on the voice (shouldn't be that hard
