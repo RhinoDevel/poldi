@@ -58,6 +58,10 @@ namespace Poldi
         private static float? _chatTopP;
         private static float? _chatMinP;
         private static float? _chatTemp;
+        private static int? _chatPenaltyLastN;
+        private static float? _chatPenaltyRepeat;
+        private static float? _chatPenaltyFreq;
+        private static float? _chatPenaltyPresent;
 
         // *********************************************************************
 
@@ -87,6 +91,10 @@ namespace Poldi
                 _chatTopP = c.top_p;
                 _chatMinP = c.min_p;
                 _chatTemp = c.temp;
+                _chatPenaltyLastN = c.penalty_last_n;
+                _chatPenaltyRepeat = c.penalty_repeat;
+                _chatPenaltyFreq = c.penalty_freq;
+                _chatPenaltyPresent = c.penalty_present;
             }
         }
 
@@ -131,6 +139,10 @@ namespace Poldi
                     _p.min_p,
                     _p.temp,
                     null, // Grammar is not used in memory & chat modes.
+                    _p.penalty_last_n,
+                    _p.penalty_repeat,
+                    _p.penalty_freq,
+                    _p.penalty_present,
                     _p.callback,
                     true, // <- Set callback to null, if _p.callback is null.
                     slotIndex);
@@ -169,6 +181,10 @@ namespace Poldi
                     _chatMinP,
                     _chatTemp,
                     null, // Grammar is not used in chat & memory modes.
+                    _chatPenaltyLastN,
+                    _chatPenaltyRepeat,
+                    _chatPenaltyFreq,
+                    _chatPenaltyPresent,
                     chatCallback,
                     true, // Set callback to null, if chatCallback is null.
                     slotIndex);

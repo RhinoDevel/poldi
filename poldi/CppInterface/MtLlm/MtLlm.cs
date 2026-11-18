@@ -176,6 +176,10 @@ namespace Poldi.CppInterface.MtLlm
             IntPtr min_p,
             IntPtr temp,
             IntPtr grammar,
+            IntPtr penalty_last_n,
+            IntPtr penalty_repeat,
+            IntPtr penalty_freq,
+            IntPtr penalty_present,
             int slot_index);
         
         [DllImport(
@@ -299,6 +303,11 @@ namespace Poldi.CppInterface.MtLlm
                 return null;
             }
             ret_val.grammar = buf;
+
+            ret_val.penalty_last_n = p.penalty_last_n;
+            ret_val.penalty_repeat = p.penalty_repeat;
+            ret_val.penalty_freq = p.penalty_freq;
+            ret_val.penalty_present = p.penalty_present;
 
             ret_val.cpu_moe = (byte)(p.cpu_moe ? 1 : 0);
             ret_val.n_cpu_moe = p.n_cpu_moe;
@@ -480,6 +489,10 @@ namespace Poldi.CppInterface.MtLlm
             float? minP,
             float? temp,
             string? grammar,
+            int? penaltyLastN,
+            float? penaltyRepeat,
+            float? penaltyFreq,
+            float? penaltyPresent,
             Func<int, string, MtLlmTokType, float[]?, bool>? callback,
             bool setCallbackToNullIfNullGiven,
             int slotIndex)
@@ -490,6 +503,10 @@ namespace Poldi.CppInterface.MtLlm
             var minPPtr = IntPtr.Zero;
             var tempPtr = IntPtr.Zero;
             var grammarStr = IntPtr.Zero;
+            var penaltyLastNPtr = IntPtr.Zero;
+            var penaltyRepeatPtr = IntPtr.Zero;
+            var penaltyFreqPtr = IntPtr.Zero;
+            var penaltyPresentPtr = IntPtr.Zero;
             
             if(!IsInit(slotIndex))
             {
@@ -539,6 +556,42 @@ namespace Poldi.CppInterface.MtLlm
 
                 _indexToSlots[slotIndex].POuter!.grammar = grammar;
             }
+            if(penaltyLastN != null)
+            {
+                penaltyLastNPtr = Marshal.AllocHGlobal(sizeof(int));
+                Marshal.StructureToPtr(
+                    penaltyLastN.Value, penaltyLastNPtr, false);
+
+                _indexToSlots[slotIndex].POuter!.penalty_last_n =
+                    penaltyLastN.Value;
+            }
+            if (penaltyRepeat != null)
+            {
+                penaltyRepeatPtr = Marshal.AllocHGlobal(sizeof(float));
+                Marshal.StructureToPtr(
+                    penaltyRepeat.Value, penaltyRepeatPtr, false);
+
+                _indexToSlots[slotIndex].POuter!.penalty_repeat =
+                    penaltyRepeat.Value;
+            }
+            if (penaltyFreq != null)
+            {
+                penaltyFreqPtr = Marshal.AllocHGlobal(sizeof(float));
+                Marshal.StructureToPtr(
+                    penaltyFreq.Value, penaltyFreqPtr, false);
+
+                _indexToSlots[slotIndex].POuter!.penalty_freq =
+                    penaltyFreq.Value;
+            }
+            if (penaltyPresent != null)
+            {
+                penaltyPresentPtr = Marshal.AllocHGlobal(sizeof(float));
+                Marshal.StructureToPtr(
+                    penaltyPresent.Value, penaltyPresentPtr, false);
+
+                _indexToSlots[slotIndex].POuter!.penalty_present =
+                    penaltyPresent.Value;
+            }
 
             if (callback != null || setCallbackToNullIfNullGiven)
             {
@@ -552,6 +605,10 @@ namespace Poldi.CppInterface.MtLlm
                 minPPtr,
                 tempPtr,
                 grammarStr,
+                penaltyLastNPtr,
+                penaltyRepeatPtr,
+                penaltyFreqPtr,
+                penaltyPresentPtr,
                 slotIndex);
 
             if (grammarStr != IntPtr.Zero) // If-clause probably unnecessary..
@@ -577,6 +634,22 @@ namespace Poldi.CppInterface.MtLlm
             if (sysPromptStr != IntPtr.Zero) // If-clause probably unnecessary..
             {
                 Marshal.FreeHGlobal(sysPromptStr);
+            }
+            if (penaltyLastNPtr != IntPtr.Zero) // If-clause prob. unnecessary..
+            {
+                Marshal.FreeHGlobal(penaltyLastNPtr);
+            }
+            if (penaltyRepeatPtr != IntPtr.Zero) // If-clause prob. unnecessary..
+            {
+                Marshal.FreeHGlobal(penaltyRepeatPtr);
+            }
+            if (penaltyFreqPtr != IntPtr.Zero) // If-clause prob. unnecessary..
+            {
+                Marshal.FreeHGlobal(penaltyFreqPtr);
+            }
+            if (penaltyPresentPtr != IntPtr.Zero) // If-cl. prob. unnecessary..
+            {
+                Marshal.FreeHGlobal(penaltyPresentPtr);
             }
         }
 

@@ -52,6 +52,11 @@ namespace Poldi
 
                 grammar = C.D<string>($"llm:{prefix}:grammar"),
 
+                penalty_last_n = C.D<int>($"llm:{prefix}:penaltyLastN"),
+                penalty_repeat = C.D<float>($"llm:{prefix}:penaltyRepeat"),
+                penalty_freq = C.D<float>($"llm:{prefix}:penaltyFreq"),
+                penalty_present = C.D<float>($"llm:{prefix}:penaltyPresent"),
+
                 cpu_moe = C.D<bool>($"llm:{prefix}:cpuMoE"),
                 n_cpu_moe = C.D<int>($"llm:{prefix}:nCpuMoE"),
 
@@ -123,6 +128,11 @@ namespace Poldi
 
                 grammar = C.D<string>("llm:sel:grammar"),
 
+                penalty_last_n = C.D<int>($"llm:sel:penaltyLastN"),
+                penalty_repeat = C.D<float>($"llm:sel:penaltyRepeat"),
+                penalty_freq = C.D<float>($"llm:sel:penaltyFreq"),
+                penalty_present = C.D<float>($"llm:sel:penaltyPresent"),
+
                 cpu_moe = C.D<bool>($"llm:sel:cpuMoE"),
                 n_cpu_moe = C.D<int>($"llm:sel:nCpuMoE"),
                 model_file_path = C.D<string>($"llm:sel:modelPath"),
@@ -182,6 +192,11 @@ namespace Poldi
 
                 grammar = string.Empty,
 
+                penalty_last_n = 0,
+                penalty_repeat = 1.0f,
+                penalty_freq = 0.0f,
+                penalty_present = 0.0f,
+
                 cpu_moe = false,
                 n_cpu_moe = 0,
 
@@ -230,6 +245,11 @@ namespace Poldi
                 temp = 0.0f,
 
                 grammar = string.Empty,
+
+                penalty_last_n = 0,
+                penalty_repeat = 1.0f,
+                penalty_freq = 0.0f,
+                penalty_present = 0.0f,
 
                 cpu_moe = false,
                 n_cpu_moe = 0,

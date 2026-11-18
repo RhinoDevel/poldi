@@ -40,6 +40,11 @@ namespace Poldi.CppInterface.MtLlm
 
         internal string? grammar;
 
+        internal Int32 penalty_last_n;
+        internal float penalty_repeat;
+        internal float penalty_freq;
+        internal float penalty_present;
+
         internal bool cpu_moe;
         internal Int32 n_cpu_moe;
 
@@ -83,6 +88,11 @@ namespace Poldi.CppInterface.MtLlm
             temp = o.temp;
 
             grammar = o.grammar;
+
+            penalty_last_n = o.penalty_last_n;
+            penalty_repeat = o.penalty_repeat;
+            penalty_freq = o.penalty_freq;
+            penalty_present = o.penalty_present;
 
             cpu_moe = o.cpu_moe;
             n_cpu_moe = o.n_cpu_moe;
@@ -159,6 +169,23 @@ namespace Poldi.CppInterface.MtLlm
             }
 
             if (grammar != o.grammar)
+            {
+                return false;
+            }
+
+            if(penalty_last_n != o.penalty_last_n)
+            {
+                return false;
+            }
+            if(penalty_repeat != o.penalty_repeat)
+            {
+                return false;
+            }
+            if(penalty_freq != o.penalty_freq)
+            {
+                return false;
+            }
+            if(penalty_present != o.penalty_present)
             {
                 return false;
             }

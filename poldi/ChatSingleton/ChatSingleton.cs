@@ -561,7 +561,19 @@ namespace Poldi.ChatSingleton
 
             _lastMsgs.Clear();
             MtLlm.Reset(
-                null, null, null, null, null, null, null, false, p.SlotIndex);
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                false,
+                p.SlotIndex);
             return toImport;
         }
 

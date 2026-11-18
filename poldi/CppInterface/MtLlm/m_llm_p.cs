@@ -48,6 +48,11 @@ namespace Poldi.CppInterface.MtLlm
             SizeConst = MtLlmPLen.MT_LLM_P_LEN_GRAMMAR)]
         internal byte[] grammar;
 
+        internal Int32 penalty_last_n;
+        internal float penalty_repeat;
+        internal float penalty_freq;
+        internal float penalty_present;
+
         internal byte cpu_moe;
         internal Int32 n_cpu_moe;
 

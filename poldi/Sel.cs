@@ -153,6 +153,10 @@ namespace Poldi
                     null,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
+                    null,
                     _p.callback,
                     true, // <- Set callback to null, if _p.callback is null.
                     slotIndex);
@@ -197,6 +201,10 @@ namespace Poldi
 
                 MtLlm.Reset(
                     _chatSysPrompt,
+                    null,
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                     null,

@@ -198,6 +198,10 @@ namespace Poldi
                         null,
                         null,
                         null,
+                        null,
+                        null,
+                        null,
+                        null,
                         false,
                         _slotIndex);
                     return;
