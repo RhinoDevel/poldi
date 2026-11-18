@@ -80,8 +80,8 @@ temperature = 0.8
 grammar = ""
 penaltyLastN = 0 # 64 is the default value (0 = disabled).
 penaltyRepeat = 1.0 # 1.0f = disabled.
-penaltyFreq = 0.0f # 0.0f = disabled.
-penaltyPresent = 0.0f # 0.0f = disabled.
+penaltyFreq = 0.0 # 0.0f = disabled.
+penaltyPresent = 0.0 # 0.0f = disabled.
 cpuMoE = false
 nCpuMoE = 0
 modelPath = "unset_llm_chat_model_path"
@@ -128,8 +128,8 @@ temperature = 0.8
 grammar = ""
 penaltyLastN = 0 # 64 is the default value (0 = disabled).
 penaltyRepeat = 1.0 # 1.0f = disabled.
-penaltyFreq = 0.0f # 0.0f = disabled.
-penaltyPresent = 0.0f # 0.0f = disabled.
+penaltyFreq = 0.0 # 0.0f = disabled.
+penaltyPresent = 0.0 # 0.0f = disabled.
 cpuMoE = false
 nCpuMoE = 0
 modelPath = "unset_llm_sel_model_path"
@@ -170,8 +170,8 @@ temperature = 0.8
 grammar = ""
 penaltyLastN = 0 # 64 is the default value (0 = disabled).
 penaltyRepeat = 1.0 # 1.0f = disabled.
-penaltyFreq = 0.0f # 0.0f = disabled.
-penaltyPresent = 0.0f # 0.0f = disabled.
+penaltyFreq = 0.0 # 0.0f = disabled.
+penaltyPresent = 0.0 # 0.0f = disabled.
 cpuMoE = false
 nCpuMoE = 0
 modelPath = "unset_llm_mem_model_path"
